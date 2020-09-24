@@ -15,7 +15,7 @@ app.engine('.hbs', exphbs ({
     defaultLayout: 'main',
     layoutsDir: path.join(__dirname, 'layouts'),
     extname: '.hbs',
-    helpers: require('./lib/hadlebars')
+    helpers: require('./lib/handlebars')
 }));
 app.set('view engine', '.hbs');
 
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
-app.use(require('./routes/links')); 
+app.use(require('./routes/EquiposTelco')); 
 
 
 //Public
