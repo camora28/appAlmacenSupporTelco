@@ -10,10 +10,11 @@ const app = express();
 
 //Settings
 app.set('port', process.env.PORT || 4000);
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs ({
     defaultLayout: 'main',
-    layoutsDir: path.join(__dirname, 'layouts'),
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
     helpers: require('./lib/handlebars')
 }));
@@ -25,6 +26,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
+
 //Global Variables
 app.use((req, res, next) => {
     next();
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
-app.use(require('./routes/EquiposTelco')); 
+app.use('/equiposTelco',require('./routes/EquiposTelco')); 
 
 
 //Public
