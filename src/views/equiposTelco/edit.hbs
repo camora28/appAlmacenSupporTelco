@@ -1,0 +1,41 @@
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="add" method="POST">
+                    <div class="form-group">
+                        <input value="{{equipoTelco.Id_ActivoTx}}" type="text" class="form-control" name="Id_ActivoTx" placeholder="Activo o Serial equipo" autofocus>
+                    </div>
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Serial_EqTx}}" type="text" class="form-control" name="Serial_EqTx" placeholder="Serial equipo">
+                        </div>
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Mac_EqTx}}" type="text" class="form-control" name="Mac_EqTx" placeholder="address mac equipo">
+                        </div>
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Modelo_EqTx}}"  type="text" class="form-control" name="Modelo_EqTx" placeholder="modelo equipo">
+                        </div>
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Marca_EqTx}}" type="text" class="form-control" name="Marca_EqTx" placeholder="Marca equipo">
+                        </div>
+                        <div class="form-group">
+                        <textarea value="{{equipoTelco.Description_EqTx}}" name="Description_EqTx" class="form-control" rows="4" placeholder="Description equipo"></textarea>
+                        </div>  
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Propietario_EqTx}}" type="text" class="form-control" name="Propietario_EqTx" placeholder="Propiedad equipo">
+                        </div>
+                        <div class="form-group">
+                            <input value="{{equipoTelco.Ubicación_EqTx}}" type="text" class="form-control" name="Ubicación_EqTx" placeholder="Ubicación equipo">     
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>

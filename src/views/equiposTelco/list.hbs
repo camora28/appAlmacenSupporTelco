@@ -1,0 +1,50 @@
+<div class="container-fluid p-4">
+    
+        <table class="table table-striped table-secondary">
+            <thead>
+                <tr class="table-primary justify-content">
+                    <th scope="col" class="text-uppercase">Activo</th>
+                    <th scope="col" class="text-uppercase">Serial</th>
+                    <th scope="col" class="text-uppercase">Mac</th>
+                    <th scope="col" class="text-uppercase">Modelo</th>
+                    <th scope="col" class="text-uppercase">Marca</th>
+                    <th scope="col" class="text-uppercase">Description</th>
+                    <th scope="col" class="text-uppercase">Propietario</th>
+                    <th scope="col" class="text-uppercase">Ubicación</th>
+                    <th scope="col" ><img src="https://img.icons8.com/officexs/30/000000/delete-sign.png"/></th>
+                    <th scope="col" ><img src="https://img.icons8.com/fluent-systems-filled/24/000000/edit.png" /></th>
+                    
+                </tr>
+
+            </thead>
+            <tbody>
+                {{#each equiposTelco}}
+                <tr class="justify-content" scope="row">
+                    <th>{{Id_ActivoTx}} </th>
+                    <th>{{Serial_EqTx}} </th>
+                    <th>{{Mac_EqTx}} </th>
+                    <th>{{Modelo_EqTx}} </th>
+                    <th>{{Marca_EqTx}} </th>
+                    <th>{{Description_EqTx}} </th>
+                    <th>{{propietario_EqTx}} </th>
+                    <th>{{Ubicación_EqTx}} </th>
+                    <th>
+                        <a href="/equiposTelco/delete/{{Id_ActivoTx}}" class="btn btn-light "><img src="https://img.icons8.com/fluent/24/000000/delete-sign.png"/></a>
+                    </th>
+                    <th>
+                        <a href="/equiposTelco/edit/{{Id_ActivoTx}}" class="btn btn-success "><img src="https://img.icons8.com/fluent-systems-filled/24/000000/edit.png"/></a>
+                    </th>
+                </tr>
+                {{else}}
+                <div class="col-md-4 mx-auto p-4">
+                    <div class="card card-body text-center">
+                        <p>no se encuetran equipos en la base de datos agrega uno </p>
+                        <a href="/equiposTelco/add">
+                            agregar un equipos
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+            </tbody>
+        </table>
+</div>
