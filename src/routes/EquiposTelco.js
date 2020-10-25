@@ -21,7 +21,7 @@ router.post('/add', async(req, res) => {
         Ubicación_EqTx 
     }
     await pool.query('INSERT INTO equipostelco set ?', [newEquipoTx] );
-    req.flash('success', 'Datos guardados satisfactoriamente')
+    req.flash('success', 'Datos guardados satisfactoriamente');
     res.redirect('/equiposTelco');
 });
 //consultamos la todos los equipos de la base de datos
@@ -35,6 +35,7 @@ router.get('/', async(req, res) => {
 router.get('/delete/:Id_ActivoTx', async(req, res) => {
     const {Id_ActivoTx} = req.params;
     await pool.query('DELETE FROM equiposTelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
+    req.flash('success','equipo eliminado satisfactoriamente!!');
     res.redirect('/equiposTelco');
 
 })
@@ -58,6 +59,7 @@ router.post('/edit/:Id_ActivoTx', async(req, res) => {
     };
     console.log(editEquipoTelco);
     await pool.query('UPDATE equipostelco set ? WHERE Id_ActivoTx = ?', [editEquipoTelco, Id_ActivoTx]);
+    req.flash('success','equipo actualizado satisfactoriamente!!')
     res.redirect('/equiposTelco');
 })
 
