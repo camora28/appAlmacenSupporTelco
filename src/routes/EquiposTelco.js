@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const router = express.Router();
 // requiero la conexion a DB
@@ -9,7 +10,7 @@ router.get('/add', isLoggedIn, (req, res) => {
 });
 
 //agregamos toda la informacion del formulario en base de datos
-router.post('/add', isLoggedIn,  async(req, res) => {
+router.post('/add', isLoggedIn, async(req, res) => {
     const {Id_ActivoTx, Serial_EqTx, Mac_EqTx, Modelo_EqTx, Marca_EqTx,Description_EqTx, Propietario_EqTx, Ubicación_EqTx } = req.body;
     const newEquipoTx = {
         Id_ActivoTx, 
@@ -21,9 +22,36 @@ router.post('/add', isLoggedIn,  async(req, res) => {
         Propietario_EqTx, 
         Ubicación_EqTx 
     }
-    await pool.query('INSERT INTO equipostelco set ?', [newEquipoTx] );
-    req.flash('success', 'Datos guardados satisfactoriamente');
-    res.redirect('/equiposTelco');
+    console.log([Id_ActivoTx])
+    const rowactivostx = await pool.query('SELECT * FROM equiposTelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
+    
+    console.log('||--- resultado de la consulta seleccionar todo desde equipostelco si el id activo es igual a Id_ActivoTx---||')
+    console.log(rowactivostx);
+    
+    if (rowactivostx.length > 0) {
+        const row1  = rowactivostx[0];  
+        console.log('--fila encontrada:', row1);
+        const validadando = row1.Id_ActivoTx === newEquipoTx.Id_ActivoTx;
+        if(validadando) {
+            console.log('datos duplicados:', validadando);
+            req.flash('message', 'Id_Activo ya existe!');  
+            res.render('equipostelco/add',{
+            Id_ActivoTx,
+            Serial_EqTx,
+            Mac_EqTx,
+            Modelo_EqTx,
+            Marca_EqTx,
+            Description_EqTx,
+            Propietario_EqTx,
+            Ubicación_EqTx
+            });         
+        }
+    }else {
+        console.log ('insertando datos:',[newEquipoTx] );
+        pool.query('INSERT INTO equipostelco set ?', [newEquipoTx] );
+        req.flash('success', 'Datos guardados satisfactoriamente');
+        res.redirect('/equiposTelco');
+    }         
 });
 //consultamos la todos los equipos de la base de datos
 router.get('/', isLoggedIn, async(req, res) => {

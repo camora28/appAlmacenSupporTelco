@@ -14,8 +14,9 @@ const app = express();
 require('./lib/passport');
 
 //Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 4000); //configuracion puerto a usar
 app.set('views', path.join(__dirname, 'views'));
+//---|configuracion motor de plantillas<handlebars>
 app.engine('.hbs', exphbs ({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -23,6 +24,7 @@ app.engine('.hbs', exphbs ({
     extname: '.hbs',
     helpers: require('./lib/handlebars')
 }));
+//---|ejecutamos el motor de plantillas
 app.set('view engine', '.hbs');
 
 
@@ -42,7 +44,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Global Variables
-app.use((req, res, next) => {
+//funcion para ejecutar desde cualquier parte de la app
+app.use((req, res, next) => { 
     app.locals.success = req.flash('success');
     app.locals.message = req.flash('message');
     app.locals.user = req.user;
