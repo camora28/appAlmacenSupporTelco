@@ -23,19 +23,22 @@ router.post('/add', isLoggedIn, async(req, res) => {
         Ubicación_EqTx 
     }
     console.log([Id_ActivoTx])
-    const rowactivostx = await pool.query('SELECT * FROM equiposTelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
+    const rowactivostx = await pool.query('SELECT * FROM equipostelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
     
     console.log('||--- resultado de la consulta seleccionar todo desde equipostelco si el id activo es igual a Id_ActivoTx---||')
     console.log(rowactivostx);
+    const errors = [];
     
     if (rowactivostx.length > 0) {
         const row1  = rowactivostx[0];  
         console.log('--fila encontrada:', row1);
         const validadando = row1.Id_ActivoTx === newEquipoTx.Id_ActivoTx;
         if(validadando) {
-            console.log('datos duplicados:', validadando);
-            req.flash('message', 'Id_Activo ya existe!');  
-            res.render('equipostelco/add',{
+            errors.push({text: 'Id_Activo ya existe!'})
+            console.log('datos duplicados:', validadando); 
+           req.flash('message', 'Id_Activo ya existe!'); 
+            res.render('./equiposTelco/add',{
+                errors,
             Id_ActivoTx,
             Serial_EqTx,
             Mac_EqTx,
@@ -44,7 +47,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
             Description_EqTx,
             Propietario_EqTx,
             Ubicación_EqTx
-            });         
+            });                  
         }
     }else {
         console.log ('insertando datos:',[newEquipoTx] );
@@ -63,7 +66,7 @@ router.get('/', isLoggedIn, async(req, res) => {
 
 router.get('/delete/:Id_ActivoTx', isLoggedIn, async(req, res) => {
     const {Id_ActivoTx} = req.params;
-    await pool.query('DELETE FROM equiposTelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
+    await pool.query('DELETE FROM equipostelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
     req.flash('success','equipo eliminado satisfactoriamente!!');
     res.redirect('/equiposTelco');
 
