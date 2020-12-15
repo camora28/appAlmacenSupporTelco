@@ -20,7 +20,8 @@ router.post('/add', isLoggedIn, async(req, res) => {
         Marca_EqTx, 
         Description_EqTx, 
         Propietario_EqTx, 
-        Ubicación_EqTx 
+        Ubicación_EqTx,
+        user_id: req.user.id
     }
     console.log([Id_ActivoTx])
     const rowactivostx = await pool.query('SELECT * FROM equipostelco WHERE Id_ActivoTx = ?', [Id_ActivoTx]);
@@ -58,7 +59,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 });
 //consultamos la todos los equipos de la base de datos
 router.get('/', isLoggedIn, async(req, res) => {
-    const equiposTelco = await pool.query('SELECT * FROM equipostelco');
+    const equiposTelco = await pool.query('SELECT * FROM equipostelco WHERE user_id = ?',[req.user.id]);    
     res.render('equiposTelco/list', {equiposTelco});
 
     // res.send('listado de los equipos');
